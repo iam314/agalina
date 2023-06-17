@@ -1,0 +1,26 @@
+{
+  "i4297e12": {
+    "url": "/assets/images/angelina_yacht_main.jpg",
+    "alt": ""
+  },
+  "-28c88b73": {
+    "url": "/assets/images/agalina_plan.svg",
+    "alt": "План на Агалина"
+  },
+  "-1f8299d7": {
+    "url": "https://d3e54v103j8qbb.cloudfront.net/img/placeholder-thumb.svg",
+    "alt": ""
+  },
+  "-3301953a": {
+    "url": "https://uploads-ssl.webflow.com/62b3765873e200695bfef172/62b4807841e064acdbc63bb6_606b4ef432a174553664f98d_png_blnk.png",
+    "alt": "UDESLY-START-LIQUID{{ item.data.title }}UDESLY-END-LIQUID"
+  },
+  "7bed05b5": {
+    "url": "/assets/images/divider.svg",
+    "alt": ""
+  },
+  "-1f4ad29": {
+    "url": "/assets/images/img-6277436eaf399d87b1ca334fe09cd21a-v-copy.jpg",
+    "alt": "Пристанище Созопол"
+  }
+}

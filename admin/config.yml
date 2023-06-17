@@ -1,0 +1,784 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: snimki_ot_lodkata
+    label: Снимки от Лодкатаs
+    folder: cms/snimki-ot-lodkata
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_snimka
+        label: Снимка
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_koya-galeriya
+        label: Коя галерия
+        widget: select
+        required: false
+        options:
+          - label: Снимки от лодката
+            value: Снимки от лодката
+          - label: Снимки на лодката
+            value: Снимки на лодката
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: snimki-ot-lodkata
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[snimki-ot-lodkata].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: snimki_na_lodkata
+    label: Снимки на Лодкатаs
+    folder: cms/snimki-na-lodkata
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_snimka
+        label: Снимка
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: Снимки на лодката
+        name: f_koya-galeriya
+        label: Коя галерия
+        widget: select
+        required: false
+        options:
+          - label: Снимки на лодката
+            value: Снимки на лодката
+          - label: Снимки от лодката
+            value: Снимки от лодката
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: snimki-na-lodkata
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[snimki-na-lodkata].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: За Нас, key: 35c2e147'
+            label: Text
+            name: 35c2e147
+            widget: string
+          - hint: 'Original text: Наем на яхта, key: 7236c6b'
+            label: Text
+            name: 7236c6b
+            widget: string
+          - hint: 'Original text: Локация, key: -581492bc'
+            label: Text
+            name: '-581492bc'
+            widget: string
+          - hint: 'Original text: Цени и услуги, key: 5bf91cc9'
+            label: Text
+            name: 5bf91cc9
+            widget: string
+          - hint: 'Original text: Контакти, key: -c4cb6b7'
+            label: Text
+            name: '-c4cb6b7'
+            widget: string
+          - hint: 'Original text: FAQ, key: 10ef6'
+            label: Text
+            name: 10ef6
+            widget: string
+          - hint: 'Original text: Facebook, key: 217bfee6'
+            label: Text
+            name: 217bfee6
+            widget: string
+          - hint: 'Original text: Instagram, key: 792b2792'
+            label: Text
+            name: 792b2792
+            widget: string
+          - hint: 'Original text: Link to facebook page, key: 214f660a'
+            label: Text
+            name: 214f660a
+            widget: string
+          - hint: 'Original text: Link to Instagram account , key: -1347b560'
+            label: Text
+            name: '-1347b560'
+            widget: string
+          - hint: 'Original text: Катамаран, key: -412e1d2b'
+            label: Text
+            name: '-412e1d2b'
+            widget: string
+          - hint: 'Original text: Агалина, key: 4eb9739d'
+            label: Text
+            name: 4eb9739d
+            widget: string
+          - hint: >-
+              Original text: Добре дошли на борда на яхта Агалина, key:
+              -48a480c7
+            label: Text
+            name: '-48a480c7'
+            widget: string
+          - hint: >-
+              Original text: Луксозен ветроходен катамаран - CATANA 531, с
+              дължина 16 метра и ширина 8 метра. Яхтата е просторна, комфортна и
+              стабилна. Катамаран Агалина е с капацитет 18 души и е оборудван с
+              всичко, от което ще имате нужда по време на плаване - широк кокпит
+              с бимини, голяма маса за хранене, щори, външно и вътрешно
+              озвучаване, външен душ, каюткомпания с удобен ъглов диван, кухня с
+              два хладилника и фризер, фурна, котлони, кафемашина, четири каюти
+              с бани и тоалетни. Освен това яхтата разполага с надуваема лодка с
+              извънбордов двигател, SUP борд, водно кресло – пързалка, хамак.,
+              key: 3331e9d8
+            label: Text
+            name: 3331e9d8
+            widget: text
+          - hint: 'Original text: За Резервации, key: -5e716a7e'
+            label: Text
+            name: '-5e716a7e'
+            widget: string
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: >-
+              Original text: Яхта под наем за незабравим ден по вода, key:
+              4fcf1933
+            label: Text
+            name: 4fcf1933
+            widget: string
+          - hint: >-
+              Original text: Яхта Агалина се отдава под наем за дневни чартъри и
+              е подходяща както за партита и различни видове тематични събития,
+              тиймбилдинг, корпоративни събития, така и за спокойни семейни и
+              приятелски плавания, на които ще можете да се докоснете до малкото
+              диви кътчета на южното Черноморие. Маршрутът, както и всички
+              останали детайли, свързани с това как ще протече плаването,
+              зависят от вашите желания, метеорологичната прогноза и преценката
+              на капитана. Възможностите са много – можете да прекарате целия
+              ден в морето, да ловите риба, да пуснете котва в някой залив, да
+              плувате, да се гмуркате или да съчетаете плаването с обяд на
+              сушата., key: 6f4bb77e
+            label: Text
+            name: 6f4bb77e
+            widget: text
+          - hint: >-
+              Original text: Ветроходното приключение с катамаран започва тук,
+              key: -414293b3
+            label: Text
+            name: '-414293b3'
+            widget: string
+          - hint: "Original text: Яхта Агалина е локализирана в Марина Порт Созопол – най-голямото и\_ добре защитено яхтено пристанище с денонощен паркинг, бар и няколко рибни ресторанта в близост. Созопол е началната и крайна точка на вашето приключение по вода. Когато пристигнете, капитанът ще ви посрещне на борда, ще отговори на всички въпроси, ще запознае гостите с всички особености на лодката, както и с правилата за безопасност. Усмихнете се, вдигаме платна и потегляме!, key: -37ba9b56"
+            label: Text
+            name: '-37ba9b56'
+            widget: text
+          - hint: 'Original text: Често задавани въпроси, key: -304829c5'
+            label: Text
+            name: '-304829c5'
+            widget: string
+          - hint: 'Original text: Какво е катамаран?, key: -283961b'
+            label: Text
+            name: '-283961b'
+            widget: string
+          - hint: >-
+              Original text: Катамаранът е двукорпусна лодка. За разлика от
+              класическите еднокорпусни яхти, той е много по-лек, бърз, маневрен
+              и стабилен. При вълнение, кренът (наклона) на катамарана е много
+              по-малък отколкото при яхтите с кил. Това прави плаването много
+              по-комфортно и позволява използването на цялата му площ., key:
+              -1dcd3966
+            label: Text
+            name: '-1dcd3966'
+            widget: text
+          - hint: >-
+              Original text: Какво е нужно за плаване с катамаран?, key:
+              794a883c
+            label: Text
+            name: 794a883c
+            widget: string
+          - hint: >-
+              Original text: Нищо специално. Освен добро настроение, вземете със
+              себе си същите неща, които биха ви били необходими на плажа. Добра
+              идея е да вземете маска и шнорхел., key: 255b953f
+            label: Text
+            name: 255b953f
+            widget: text
+          - hint: >-
+              Original text: Може ли да ми стане лошо? (морска болест), key:
+              -5bbfca55
+            label: Text
+            name: '-5bbfca55'
+            widget: string
+          - hint: >-
+              Original text: Ако се опасявате, че ще получите дискомфорт, може
+              да използвате медикамент преди да се качите на борда., key:
+              240bfa51
+            label: Text
+            name: 240bfa51
+            widget: text
+          - hint: >-
+              Original text: В цената на наема включени ли са храна и напитки?,
+              key: 5e19d6c0
+            label: Text
+            name: 5e19d6c0
+            widget: string
+          - hint: >-
+              Original text: Не, но може да носите със себе си или да
+              организирате кетъринг. Хладилниците и фризерите на борда са
+              големи, така че ще разполагате с достатъчно място за лед, продукти
+              и напитки., key: -6ce2eee
+            label: Text
+            name: '-6ce2eee'
+            widget: text
+          - hint: 'Original text: Мога ли да наема яхтата без капитан?, key: bc7606e'
+            label: Text
+            name: bc7606e
+            widget: string
+          - hint: 'Original text: Не, наема се само с капитан., key: -284977a'
+            label: Text
+            name: '-284977a'
+            widget: string
+          - hint: >-
+              Original text: Може ли да отплаваме от друго пристанище?, key:
+              2a512cff
+            label: Text
+            name: 2a512cff
+            widget: string
+          - hint: >-
+              Original text: Възможността за тръгване от друго пристанище се
+              обсъжда за всеки конкретен чартър и може да наложи промяна в
+              обявената цена., key: -4b510f12
+            label: Text
+            name: '-4b510f12'
+            widget: text
+          - hint: >-
+              Original text: Подходящо ли е плаването с катамаран за малки
+              деца?, key: -1061e63e
+            label: Text
+            name: '-1061e63e'
+            widget: string
+          - hint: >-
+              Original text: Да, ако няма голямо вълнение и не оставяте децата
+              без надзор. Използването на спасителна жилетка е препоръчително
+              само в някои части на лодката. На борда има достатъчно места,
+              които са напълно безопасни., key: -3605643f
+            label: Text
+            name: '-3605643f'
+            widget: text
+          - hint: >-
+              Original text: Колко човека побира плавателният съд?, key:
+              2b0a6d31
+            label: Text
+            name: 2b0a6d31
+            widget: string
+          - hint: >-
+              Original text: Яхта Агалина е подходяща, както за малки групи,
+              така и за компания до максимум 18 човека., key: 566835ee
+            label: Text
+            name: 566835ee
+            widget: string
+          - hint: 'Original text: Цена за наем и услуги, key: -50c0cb50'
+            label: Text
+            name: '-50c0cb50'
+            widget: string
+          - hint: >-
+              Original text: Яхтата може да бъде наета в рамките на ден за:,
+              key: -5405313c
+            label: Text
+            name: '-5405313c'
+            widget: string
+          - hint: >-
+              Original text: Спокойна еднодневна разходка до различни точки по
+              българското Черноморие. Невероятна възможност да разгледате
+              крайбрежието, да видите диви заливи и малки плажове, до които не
+              се стига по суша, key: -72799514
+            label: Text
+            name: '-72799514'
+            widget: text
+          - hint: 'Original text: Тиймбилдинг и социални клубове, key: -222003e6'
+            label: Text
+            name: '-222003e6'
+            widget: string
+          - hint: 'Original text: Корпоративно събитие, key: -5f80f29f'
+            label: Text
+            name: '-5f80f29f'
+            widget: string
+          - hint: 'Original text: Парти за рожден ден, key: -38d5e3b4'
+            label: Text
+            name: '-38d5e3b4'
+            widget: string
+          - hint: 'Original text: Моминско и ергенско парти, key: 5d444d1c'
+            label: Text
+            name: 5d444d1c
+            widget: string
+          - hint: >-
+              Original text: Сватбен трансфер - пристигнете със стил (стига да е
+              по вода!), key: 67d48ab4
+            label: Text
+            name: 67d48ab4
+            widget: string
+          - hint: >-
+              Original text: Яхтата се отдава за 4 или 8 часа с включени
+              капитан, моряк и гориво в цената., key: 1b61ea9b
+            label: Text
+            name: 1b61ea9b
+            widget: string
+          - hint: 'Original text: 4 часа, key: 5c80f304'
+            label: Text
+            name: 5c80f304
+            widget: string
+          - hint: 'Original text: 950 €, key: 33c2c20'
+            label: Text
+            name: 33c2c20
+            widget: string
+          - hint: 'Original text: 8 часа, key: 63545580'
+            label: Text
+            name: '63545580'
+            widget: string
+          - hint: 'Original text: 1,500 €, key: 6e281b06'
+            label: Text
+            name: 6e281b06
+            widget: string
+          - hint: >-
+              Original text: Чартърите започват и завършват на Марина Порт
+              Созопол., key: -1c16c71
+            label: Text
+            name: '-1c16c71'
+            widget: string
+          - hint: "Original text: Ако имате план, който е свързан с друга локация или различна продължителност на наема, ще се радваме да обсъдим възможните варианти. Каквато и да е идеята ви за този ден, катамаран AGALINA \_e чудесна възможност да я осъществите! , key: bab14b8"
+            label: Text
+            name: bab14b8
+            widget: text
+          - hint: 'Original text: Просто ни попитайте, key: -1d07ee9f'
+            label: Text
+            name: '-1d07ee9f'
+            widget: string
+          - hint: 'Original text: ., key: 2e'
+            label: Text
+            name: 2e
+            widget: string
+          - hint: 'Original text: Стефан Акрабов, key: 4dc7e568'
+            label: Text
+            name: 4dc7e568
+            widget: string
+          - hint: 'Original text: Eмейл:, key: -4c9c25e6'
+            label: Text
+            name: '-4c9c25e6'
+            widget: string
+          - hint: 'Original text: stefanakrabov@gmail.com, key: 5fd6b6b2'
+            label: Text
+            name: 5fd6b6b2
+            widget: string
+          - hint: 'Original text: Tелефон:, key: 17d42192'
+            label: Text
+            name: 17d42192
+            widget: string
+          - hint: 'Original text: +359 888 221 491, key: -473c3f5f'
+            label: Text
+            name: '-473c3f5f'
+            widget: string
+          - hint: 'Original text: Адрес:, key: 2be9b2f2'
+            label: Text
+            name: 2be9b2f2
+            widget: string
+          - hint: 'Original text: Марина Порт Созопол, понтон D, key: -7b5dfccb'
+            label: Text
+            name: '-7b5dfccb'
+            widget: string
+          - hint: 'Original text: Следвай ни:, key: -17e0e25f'
+            label: Text
+            name: '-17e0e25f'
+            widget: string
+          - hint: 'Original text: Link to facebook page , key: 89d5b56'
+            label: Text
+            name: 89d5b56
+            widget: string
+          - hint: 'Original text: Link to Instagram account, key: -322b9a80'
+            label: Text
+            name: '-322b9a80'
+            widget: string
+          - hint: 'Original text: © Агалина. Всички права запазени., key: 30805b6c'
+            label: Text
+            name: 30805b6c
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: #Za_Nas, key: -256e7615'
+            label: Link
+            name: '-256e7615'
+            widget: string
+          - hint: 'Original link: #Naem_na_qhta, key: -2cbe3d11'
+            label: Link
+            name: '-2cbe3d11'
+            widget: string
+          - hint: 'Original link: #Lokaciq, key: -5461ed91'
+            label: Link
+            name: '-5461ed91'
+            widget: string
+          - hint: 'Original link: #Ceni__i_uslugi, key: -6880c761'
+            label: Link
+            name: '-6880c761'
+            widget: string
+          - hint: 'Original link: #Contakti, key: 27630f94'
+            label: Link
+            name: 27630f94
+            widget: string
+          - hint: 'Original link: #FAQ, key: 10f7f3'
+            label: Link
+            name: 10f7f3
+            widget: string
+          - hint: >-
+              Original link: https://www.facebook.com/agalinayacht, key:
+              -6c2901f4
+            label: Link
+            name: '-6c2901f4'
+            widget: string
+          - hint: >-
+              Original link: https://www.instagram.com/agalina.catamaran/, key:
+              2b80fac2
+            label: Link
+            name: 2b80fac2
+            widget: string
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: mailto:stefanakrabov@gmail.com, key: -7baa1e56'
+            label: Link
+            name: '-7baa1e56'
+            widget: string
+          - hint: 'Original link: tel:+359888221491, key: -7cd01bb8'
+            label: Link
+            name: '-7cd01bb8'
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: i4297e12
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-28c88b73'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1f8299d7'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3301953a'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7bed05b5
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1f4ad29'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow
